@@ -23,12 +23,13 @@ lspconfig.gopls.setup {
   capabilities = nvlsp.capabilities,
   settings = {
     gopls = {
-      gofumpt = true,  -- A stricter gofmt
+      gofumpt = true, -- A stricter gofmt
       analyses = {
         unusedparams = true,
       },
       staticcheck = true,
       usePlaceholders = true,
+      buildFlags = { "-tags=integration" }
     },
   },
 }
