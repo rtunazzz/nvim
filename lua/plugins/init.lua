@@ -49,11 +49,13 @@ return {
     build = "make", -- This is Optional, only if you want to use tiktoken_core to calculate tokens count
     opts = {},
     dependencies = {
-      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+      "nvim-treesitter/nvim-treesitter",
       "stevearc/dressing.nvim",
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
       --- The below is optional, make sure to setup it properly if you have lazy=true
+      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+      "zbirenbaum/copilot.lua",      -- for providers='copilot'
       {
         'MeanderingProgrammer/render-markdown.nvim',
         opts = {
