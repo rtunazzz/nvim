@@ -50,8 +50,10 @@ return {
     opts = {
       provider = "copilot",
       copilot = {
-        model = "claude-3.5-sonnet",
-        -- max_tokens = 4096,
+        model = "claude-3.7-sonnet",
+        -- model = "claude-3.7-sonnet-thought",
+        temperature = 1,
+        max_tokens = 20000,
       },
     },
     dependencies = {
@@ -59,9 +61,12 @@ return {
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
       --- The below is optional, make sure to setup it properly if you have lazy=true
-      "hrsh7th/nvim-cmp",          -- autocompletion for avante commands and mentions
-      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-      "zbirenbaum/copilot.lua",    -- for providers='copilot'
+      "echasnovski/mini.pick",         -- for file_selector provider mini.pick
+      "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+      "hrsh7th/nvim-cmp",              -- autocompletion for avante commands and mentions
+      "ibhagwan/fzf-lua",              -- for file_selector provider fzf
+      "nvim-tree/nvim-web-devicons",   -- or echasnovski/mini.icons
+      "zbirenbaum/copilot.lua",        -- for providers='copilot'
       {
         'MeanderingProgrammer/render-markdown.nvim',
         opts = {
