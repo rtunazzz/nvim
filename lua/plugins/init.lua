@@ -49,6 +49,13 @@ return {
     build = "make", -- This is Optional, only if you want to use tiktoken_core to calculate tokens count
     opts = {
       provider = "copilot",
+      cursor_applying_provider = "gemini",
+      enable_cursor_planning_mode = true,
+      gemini = {
+        model = "gemini-2.5-pro-exp-03-25",
+        max_tokens = 100000, -- use up to 100k tokens, max is 2M
+      },
+      -- provider = "copilot",
       copilot = {
         model = "claude-3.7-sonnet",
         -- model = "claude-3.7-sonnet-thought",
@@ -57,10 +64,10 @@ return {
       },
       custom_tools = {
         {
-          name = "run_go_tests",                            -- Unique name for the tool
+          name = "run_go_tests",                                -- Unique name for the tool
           description = "Run Go unit tests and return results", -- Description shown to AI
-          command = "go test -v ./...",                     -- Shell command to execute
-          param = {                                         -- Input parameters (optional)
+          command = "go test -v ./...",                         -- Shell command to execute
+          param = {                                             -- Input parameters (optional)
             type = "table",
             fields = {
               {
