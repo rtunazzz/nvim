@@ -12,3 +12,6 @@ map("n", ";", ":", { desc = "CMD enter command mode" })
 map("v", ">", ">gv", { desc = "Indents selection" })
 
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
+
+-- Add telescope diagnostics mapping
+map("n", "<leader>tg", "<cmd>Telescope diagnostics<CR>", { desc = "Telescope diagnostics" })
