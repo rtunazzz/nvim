@@ -49,24 +49,17 @@ return {
     build = "make", -- This is Optional, only if you want to use tiktoken_core to calculate tokens count
     opts = {
       provider = "copilot",
-      cursor_applying_provider = "gemini",
-      enable_cursor_planning_mode = true,
-      gemini = {
-        model = "gemini-2.5-pro-exp-03-25",
-        max_tokens = 100000, -- use up to 100k tokens, max is 2M
-      },
-      -- provider = "copilot",
       copilot = {
-        model = "claude-3.7-sonnet",
+        model = "claude-sonnet-4",
         -- model = "claude-3.7-sonnet-thought",
-        temperature = 1,
-        max_tokens = 20000,
+        -- temperature = 1,
+        max_tokens = 90000,
       },
       custom_tools = {
         {
           name = "run_go_tests",                                -- Unique name for the tool
           description = "Run Go unit tests and return results", -- Description shown to AI
-          command = "go test -v ./...",                         -- Shell command to execute
+          command = "go test -v -cover ./...",                  -- Shell command to execute
           param = {                                             -- Input parameters (optional)
             type = "table",
             fields = {
@@ -81,35 +74,35 @@ return {
           returns = { -- Expected return values
             {
               name = "result",
-              description = "Result of the fetch",
+              description = "Result of the call",
               type = "string",
             },
             {
               name = "error",
-              description = "Error message if the fetch was not successful",
+              description = "Error message if the call was not successful",
               type = "string",
               optional = true,
             },
           },
           func = function(params, on_log, on_complete) -- Custom function to execute
             local target = params.target or "./..."
-            return vim.fn.system(string.format("go test -v %s", target))
+            return vim.fn.system(string.format("go test -v -cover %s", target))
           end,
         },
       }
     },
     dependencies = {
+      "nvim-treesitter/nvim-treesitter",
       "stevearc/dressing.nvim",
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
-      --- The below is optional, make sure to setup it properly if you have lazy=true
-      "echasnovski/mini.pick",         -- for file_selector provider mini.pick
+      --- The below dependencies are optional,
       "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
       "hrsh7th/nvim-cmp",              -- autocompletion for avante commands and mentions
-      "ibhagwan/fzf-lua",              -- for file_selector provider fzf
       "nvim-tree/nvim-web-devicons",   -- or echasnovski/mini.icons
       "zbirenbaum/copilot.lua",        -- for providers='copilot'
       {
+        -- Make sure to set this up properly if you have lazy=true
         'MeanderingProgrammer/render-markdown.nvim',
         opts = {
           file_types = { "markdown", "Avante" },
