@@ -94,6 +94,48 @@ return {
             return vim.fn.system(string.format("go test -v -cover %s", target))
           end,
         },
+        {
+          name = "check_nodejs_syntax",                                      -- Unique name for the tool
+          description = "Check Node.js/JavaScript syntax without executing", -- Description shown to AI
+          command = "node -c",                                               -- Shell command to execute
+          param = {                                                          -- Input parameters (optional)
+            type = "table",
+            fields = {
+              {
+                name = "file",
+                description = "JavaScript file to check syntax for (e.g. 'index.js' or 'src/app.js')",
+                type = "string",
+                optional = false,
+              },
+            },
+          },
+          returns = { -- Expected return values
+            {
+              name = "result",
+              description = "Result of the syntax check",
+              type = "string",
+            },
+            {
+              name = "error",
+              description = "Error message if syntax check failed",
+              type = "string",
+              optional = true,
+            },
+          },
+          func = function(params, on_log, on_complete) -- Custom function to execute
+            local file = params.file
+            if not file then
+              return "Error: file parameter is required"
+            end
+            local result = vim.fn.system(string.format("node -c %s", vim.fn.shellescape(file)))
+            local exit_code = vim.v.shell_error
+            if exit_code == 0 then
+              return string.format("Syntax check passed for %s", file)
+            else
+              return result
+            end
+          end,
+        },
       }
     },
     dependencies = {
