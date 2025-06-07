@@ -54,12 +54,21 @@ return {
     build = "make", -- This is Optional, only if you want to use tiktoken_core to calculate tokens count
     opts = {
       provider = "copilot",
-      copilot = {
-        model = "claude-sonnet-4",
-        -- model = "claude-3.7-sonnet-thought",
-        -- temperature = 1,
-        max_tokens = 90000,
+      providers = {
+        copilot = {
+          -- model = "gemini-2.5-pro",
+          model = "claude-sonnet-4",
+          -- max_tokens = 90000,
+        },
       },
+      -- rag_service = {
+      --   enabled = true,                         -- Enables the RAG service
+      --   host_mount = "/Users/arturhnat/Coding", -- Host mount path for the rag service
+      --   provider = "openai",                    -- The provider to use for RAG service (e.g. openai or ollama)
+      --   llm_model = "",                         -- The LLM model to use for RAG service
+      --   embed_model = "",                       -- The embedding model to use for RAG service
+      --   endpoint = "https://api.openai.com/v1", -- The API endpoint for RAG service
+      -- },
       custom_tools = {
         {
           name = "run_go_tests",                                -- Unique name for the tool
